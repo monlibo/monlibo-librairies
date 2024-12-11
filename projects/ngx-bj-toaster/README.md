@@ -1,63 +1,148 @@
-# NgxBjToaster
+# Ngx-BJ-Toaster
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+**Ngx-BJ-Toaster** est une bibliothèque Angular puissante et facile à utiliser pour afficher des notifications (toasts) animées avec une personnalisation complète.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Fonctionnalités
 
-```bash
-ng generate component component-name
-```
+- 🌟 Types de notifications : **success**, **error**, **info**.
+- ⏳ Durée configurable pour chaque toast.
+- 🚀 Animations fluides à l'entrée et à la sortie.
+- 📌 Position configurable : **haut-droite**, **haut-gauche**, **bas-droite**, **bas-gauche**.
+- 🧹 Gestion automatique avec un nombre maximum de toasts affichés simultanément.
+- 🌟 Icônes personnalisées pour chaque type de notification.
+- 🔧 Configuration globale ou locale.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Installation
 
-## Building
+### Pré-requis
 
-To build the library, run:
+- Angular 16 ou supérieur.
 
-```bash
-ng build ngx-bj-toaster
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/ngx-bj-toaster
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Installez la bibliothèque via npm :
 
 ```bash
-ng test
+npm install ngx-bj-toaster
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Utilisation
 
-```bash
-ng e2e
+### 1. Ajouter le composant et configurer globalement
+
+Ajoutez le module du toast et configurez-le dans votre fichier `app.config.ts` :
+
+```typescript
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  InjectionToken
+} from '@angular/core';
+...
+
+import { TOAST_CONFIG } from './toast/toast.service';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+   ...,
+    {
+      provide: TOAST_CONFIG,
+      useFactory: () => ({
+        position: 'top-right',
+        maxToasts: 3,
+        duration: 5000,
+        floating: false,
+      }),
+    },
+  ],
+};
+
+
+
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+### 2. Ajouter des toasts dans un composant
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ajoutez des notifications avec le `ToastService` dans vos composants :
+
+```typescript
+import { Component } from '@angular/core';
+import { ToastService } from 'ngx-bj-toaster';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <button (click)="showSuccess()">Show Success</button>
+    <button (click)="showError()">Show Error</button>
+    <button (click)="showInfo()">Show Info</button>
+    <bj-toaster></bj-toaster>
+  `,
+})
+export class AppComponent {
+  constructor(private toastService: ToastService) {}
+
+  showSuccess() {
+    this.toastService.success('Opération réussie !');
+  }
+
+  showError() {
+    this.toastService.error('Une erreur est survenue.');
+  }
+
+  showInfo() {
+    this.toastService.info('Ceci est une information.');
+  }
+}
+```
+
+---
+
+## API de configuration
+
+### Configuration globale (`ToastConfig`)
+
+| Propriété   | Type      | Par défaut  | Description                                                                  |
+| ----------- | --------- | ----------- | ---------------------------------------------------------------------------- |
+| `position`  | `string`  | `top-right` | Position des toasts : `top-right`, `top-left`, `bottom-right`, `bottom-left` |
+| `maxToasts` | `number`  | `5`         | Nombre maximum de toasts affichés simultanément                              |
+| `duration`  | `number`  | `5000`      | Durée des toasts (en millisecondes)                                          |
+| `floating`  | `boolean` | `false`     | Si activé, les toasts restent visibles jusqu'à suppression manuelle          |
+
+### API du service (`ToastService`)
+
+#### Méthodes disponibles
+
+| Méthode                    | Description                                          |
+| -------------------------- | ---------------------------------------------------- |
+| `success(message: string)` | Ajoute un toast de succès avec le message fourni     |
+| `error(message: string)`   | Ajoute un toast d'erreur avec le message fourni      |
+| `info(message: string)`    | Ajoute un toast d'information avec le message fourni |
+| `addToast(toast: Toast)`   | Ajoute un toast personnalisé (type, durée, etc.)     |
+| `removeToast(id: string)`  | Supprime un toast à partir de son identifiant        |
+
+#### Exemple : Ajouter un toast personnalisé
+
+```typescript
+this.toastService.addToast({
+  type: 'success',
+  message: 'Votre action a réussi !',
+  duration: 3000,
+});
+```
+
+---
+
+## Exemple d'animation et de style
+
+Le composant utilise Angular Animations pour des transitions fluides. Vous pouvez personnaliser les styles via votre propre fichier CSS/SCSS.
+
+
+## Contribuer
+
+Les contributions sont les bienvenues ! Si vous trouvez un bug ou souhaitez proposer une nouvelle fonctionnalité, ouvrez une issue ou soumettez une pull request.
