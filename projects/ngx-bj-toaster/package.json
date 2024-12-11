@@ -10,11 +10,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/monlibo/takapat-frontend.git"
+    "url": "https://github.com/monlibo/monlibo-librairies/tree/main/projects/ngx-bj-toaster"
   },
-  "bugs": {
-    "url": "https://github.com/monlibo/takapat-frontend/issues"
-  },
+  "license": "MIT",
   "maintainers": [
     {
       "name": "Libert ASSOGBA",
