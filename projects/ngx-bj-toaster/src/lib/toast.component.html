@@ -1,0 +1,27 @@
+<div class="toast-container" [ngClass]="getPositionClass()">
+  <div
+    *ngFor="let toast of toasts$ | async"
+    class="toast"
+    [ngClass]="getTypeClass(toast.type)"
+    (click)="removeToast(toast.id)"
+    @toastAnimation
+  >
+    <div
+      class="flex items-center justify-center w-[30px] h-[30px] rounded-full z-50 shadow border"
+      [ngClass]="getIconClass(toast.type)"
+    >
+      @switch (toast.type) {
+        @case ("success") {
+          <app-toast-success-icon />
+        }
+        @case ("info") {
+          <app-toast-info-icon />
+        }
+        @case ("error") {
+          <app-toast-error-icon />
+        }
+      }
+    </div>
+    <p class="text-inherit truncate min-w-0">{{ toast.message }}</p>
+  </div>
+</div>

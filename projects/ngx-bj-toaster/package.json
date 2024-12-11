@@ -1,0 +1,33 @@
+{
+  "name": "Toaster",
+  "version": "1.0",
+  "private": false,
+  "description": "A simple Toast library for Angular",
+  "author": {
+    "name": "Libert ASSOGBA",
+    "email": "libertliboo@gmail.com",
+    "url": "https://libert.vercel.app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monlibo/takapat-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/monlibo/takapat-frontend/issues"
+  },
+  "maintainers": [
+    {
+      "name": "Libert ASSOGBA",
+      "email": "libertliboo@gmail.com",
+      "url": "https://libert.vercel.app"
+    }
+  ],
+  "peerDependencies": {
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
