@@ -20,6 +20,7 @@
       "url": "https://libert.vercel.app"
     }
   ],
+  "keywords": ["angular", "library", "toast","toaster"],
   "peerDependencies": {
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0"
