@@ -1,6 +1,6 @@
 {
   "name": "ngx-bj-toaster",
-  "version": "1.0",
+  "version": "0.0.1",
   "private": false,
   "description": "A simple Toast library for Angular",
   "author": {
