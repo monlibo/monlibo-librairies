@@ -14,7 +14,7 @@ BJ Toaster is a customizable toast notification library for Angular applications
 ## Preview
 
 <p>
-<img src="assets/images/scrennshot.png" style="display:inline-block;width:100%;" />
+<img src="https://github.com/monlibo/monlibo-librairies/blob/main/projects/ngx-bj-toaster/assets/images/scrennshot.png" style="display:inline-block;width:100%;" />
 </p>
 
 ## Installation
