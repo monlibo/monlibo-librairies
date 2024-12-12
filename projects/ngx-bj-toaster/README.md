@@ -1,40 +1,29 @@
-# Ngx-BJ-Toaster
+# Toaster for Angular
 
-**Ngx-BJ-Toaster** est une bibliothèque Angular puissante et facile à utiliser pour afficher des notifications (toasts) animées avec une personnalisation complète.
+BJ Toaster is a customizable toast notification library for Angular applications, allowing you to display beautiful and responsive toast messages with animations.
 
----
+## Features
 
-## Fonctionnalités
-
-- 🌟 Types de notifications : **success**, **error**, **info**.
-- ⏳ Durée configurable pour chaque toast.
-- 🚀 Animations fluides à l'entrée et à la sortie.
-- 📌 Position configurable : **haut-droite**, **haut-gauche**, **bas-droite**, **bas-gauche**.
-- 🧹 Gestion automatique avec un nombre maximum de toasts affichés simultanément.
-- 🌟 Icônes personnalisées pour chaque type de notification.
-- 🔧 Configuration globale ou locale.
-
----
+- Customizable toast positions.
+- Supports multiple toast types (success, error, info).
+- Configurable maximum number of visible toasts.
+- Auto-dismiss functionality with customizable duration.
+- Smooth entry and exit animations.
+- Floating or fixed toast modes.
 
 ## Installation
 
-### Pré-requis
-
-- Angular 16 ou supérieur.
-
-Installez la bibliothèque via npm :
+Install the library via npm:
 
 ```bash
 npm install ngx-bj-toaster
 ```
 
----
+## Usage
 
-## Utilisation
+### 1. Import the `ToastService` and `TOAST_CONFIG` into your Angular application
 
-### 1. Ajouter le composant et configurer globalement
-
-Ajoutez le module du toast et configurez-le dans votre fichier `app.config.ts` :
+#### app.conf
 
 ```typescript
 import {
@@ -44,7 +33,7 @@ import {
 } from '@angular/core';
 ...
 
-import { TOAST_CONFIG } from './toast/toast.service';
+import { TOAST_CONFIG } from 'ngx-bj-toaster';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,89 +49,76 @@ export const appConfig: ApplicationConfig = {
     },
   ],
 };
-
-
-
 ```
 
----
+### 2. Use the ToastService
 
-### 2. Ajouter des toasts dans un composant
+Inject the `ToastService` in your component and use it to display toasts:
 
-Ajoutez des notifications avec le `ToastService` dans vos composants :
+#### ExampleComponent
 
 ```typescript
 import { Component } from '@angular/core';
 import { ToastService } from 'ngx-bj-toaster';
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <button (click)="showSuccess()">Show Success</button>
-    <button (click)="showError()">Show Error</button>
-    <button (click)="showInfo()">Show Info</button>
-    <bj-toaster></bj-toaster>
-  `,
+  selector: 'app-example',
+  template: `<button (click)="showSuccessToast()">Show Success Toast</button>`
 })
-export class AppComponent {
+export class ExampleComponent {
   constructor(private toastService: ToastService) {}
 
-  showSuccess() {
-    this.toastService.success('Opération réussie !');
-  }
-
-  showError() {
-    this.toastService.error('Une erreur est survenue.');
-  }
-
-  showInfo() {
-    this.toastService.info('Ceci est une information.');
+  showSuccessToast() {
+    this.toastService.success({
+      title: 'Operation Successful',
+      message: 'Your operation was completed successfully!',
+    });
   }
 }
 ```
 
----
+### 3. Add the Toast Component to Your Application
 
-## API de configuration
+Add the `<bj-toaster/>` selector to your application's root component or wherever you want the toasts to appear.
 
-### Configuration globale (`ToastConfig`)
+#### AppComponent Template
 
-| Propriété   | Type      | Par défaut  | Description                                                                  |
-| ----------- | --------- | ----------- | ---------------------------------------------------------------------------- |
-| `position`  | `string`  | `top-right` | Position des toasts : `top-right`, `top-left`, `bottom-right`, `bottom-left` |
-| `maxToasts` | `number`  | `5`         | Nombre maximum de toasts affichés simultanément                              |
-| `duration`  | `number`  | `5000`      | Durée des toasts (en millisecondes)                                          |
-| `floating`  | `boolean` | `false`     | Si activé, les toasts restent visibles jusqu'à suppression manuelle          |
-
-### API du service (`ToastService`)
-
-#### Méthodes disponibles
-
-| Méthode                    | Description                                          |
-| -------------------------- | ---------------------------------------------------- |
-| `success(message: string)` | Ajoute un toast de succès avec le message fourni     |
-| `error(message: string)`   | Ajoute un toast d'erreur avec le message fourni      |
-| `info(message: string)`    | Ajoute un toast d'information avec le message fourni |
-| `addToast(toast: Toast)`   | Ajoute un toast personnalisé (type, durée, etc.)     |
-| `removeToast(id: string)`  | Supprime un toast à partir de son identifiant        |
-
-#### Exemple : Ajouter un toast personnalisé
-
-```typescript
-this.toastService.addToast({
-  type: 'success',
-  message: 'Votre action a réussi !',
-  duration: 3000,
-});
+```html
+<bj-toaster/>
+<router-outlet></router-outlet>
 ```
 
----
+### 4. Customize Toast Configurations (Optional)
 
-## Exemple d'animation et de style
+You can customize the default behavior by providing a configuration object to the `TOAST_CONFIG` token.
 
-Le composant utilise Angular Animations pour des transitions fluides. Vous pouvez personnaliser les styles via votre propre fichier CSS/SCSS.
+#### Example
 
+```typescript
+{ provide: TOAST_CONFIG, useValue: { position: 'bottom-left', maxToasts: 3, duration: 3000, floating: true } }
+```
 
-## Contribuer
+## Toast Options
 
-Les contributions sont les bienvenues ! Si vous trouvez un bug ou souhaitez proposer une nouvelle fonctionnalité, ouvrez une issue ou soumettez une pull request.
+| Option    | Type                         | Default       | Description                                 |
+| --------- | ---------------------------- | ------------- | ------------------------------------------- |
+| position  | string (`'top-right'`, etc.) | `'top-right'` | Position of the toasts.                     |
+| maxToasts | number                       | `5`           | Maximum number of visible toasts at a time. |
+| duration  | number                       | `5000`        | Duration (ms) before auto-dismiss.          |
+| floating  | boolean                      | `false`       | Whether the toast should remain visible.    |
+
+## ToastService API
+
+| Method        | Parameters                        | Description                                   |                           |
+| ------------- | --------------------------------- | --------------------------------------------- | ------------------------- |
+| `success`     | \`toast: Omit\<ToastMessage, 'id' | 'type'>, floating?: boolean\`                 | Displays a success toast. |
+| `error`       | \`toast: Omit\<ToastMessage, 'id' | 'type'>, floating?: boolean\`                 | Displays an error toast.  |
+| `info`        | \`toast: Omit\<ToastMessage, 'id' | 'type'>, floating?: boolean\`                 | Displays an info toast.   |
+| `addToast`    | `toast: Omit<ToastMessage, 'id'>` | Adds a custom toast message.                  |                           |
+| `removeToast` | `id: string`                      | Removes a toast by its ID.                    |                           |
+| `getPosition` | -                                 | Retrieves the current position configuration. |                           |
+
+## License
+
+This library is open-source and available under the MIT License.
+
