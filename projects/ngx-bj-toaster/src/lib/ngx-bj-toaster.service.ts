@@ -19,8 +19,8 @@ export const TOAST_CONFIG = new InjectionToken<ToastConfig>('ToastConfig');
 export interface ToastMessage {
   id: string;
   type?: 'success' | 'error' | 'info';
-  title: string;
-  message?: string;
+  title?: string;
+  message: string;
   duration?: number;
   floating?: boolean;
 }
@@ -63,27 +63,27 @@ export class ToastService {
     }
   }
 
-  success(title: string, floating?: boolean) {
+  success(toast: Omit<ToastMessage, 'id' | 'type'>, floating?: boolean): void {
     this.addToast({
+      ...toast,
       type: 'success',
-      title,
-      floating,
+      floating: floating,
     });
   }
 
-  error(title: string, floating?: boolean) {
+  error(toast: Omit<ToastMessage, 'id' | 'type'>, floating?: boolean) {
     this.addToast({
+      ...toast,
       type: 'error',
-      title,
-      floating,
+      floating: floating,
     });
   }
 
-  info(title: string, floating?: boolean) {
+  info(toast: Omit<ToastMessage, 'id' | 'type'>, floating?: boolean) {
     this.addToast({
+      ...toast,
       type: 'info',
-      title,
-      floating,
+      floating: floating,
     });
   }
 

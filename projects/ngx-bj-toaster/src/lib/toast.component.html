@@ -7,20 +7,24 @@
     @toastAnimation
   >
     <div class="toast-icon-wrapper" [ngClass]="toast.type">
-      @switch (toast.type) { @case ("success") {
-      <app-toast-success-icon />
-      } @case ("info") {
-      <app-toast-info-icon />
-      } @case ("error") {
-      <app-toast-error-icon />
-      } }
+      @switch (toast.type) {
+        @case ("success") {
+          <app-toast-success-icon />
+        }
+        @case ("info") {
+          <app-toast-info-icon />
+        }
+        @case ("error") {
+          <app-toast-error-icon />
+        }
+      }
     </div>
     <div class="toast-message-wrapper">
       <div class="toast-title">
-        {{ toast.title }}
+        {{ toast.title || getTitle(toast.type) }}
       </div>
       <p class="toast-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit
+        {{ toast.message }}
       </p>
     </div>
 

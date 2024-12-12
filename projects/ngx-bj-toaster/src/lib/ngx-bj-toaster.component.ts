@@ -52,7 +52,7 @@ export class ToastComponent implements OnInit {
 
   constructor(
     @Inject(ToastService) private readonly toastService: ToastService,
-    @Inject(TOAST_CONFIG) private config: ToastConfig
+    @Inject(TOAST_CONFIG) private config: ToastConfig,
   ) {
     this.toasts$ = this.toastService.toasts$;
   }
@@ -70,18 +70,18 @@ export class ToastComponent implements OnInit {
     return this.toastService.getPosition();
   }
 
-  // getTypeClass(type: string | undefined): string {
-  //   switch (type) {
-  //     case 'success':
-  //       return 'success';
-  //     case 'error':
-  //       return 'text-red-500 border-red-300 ';
-  //     case 'info':
-  //       return 'text-black border-gray-300';
-  //     default:
-  //       return 'text-black border-gray-300';
-  //   }
-  // }
+  getTitle(type: string | undefined): string {
+    switch (type) {
+      case 'success':
+        return 'Success';
+      case 'error':
+        return 'Error';
+      case 'info':
+        return 'Info';
+      default:
+        return 'Info';
+    }
+  }
 
   getIconClass(type: string | undefined): string {
     switch (type) {
