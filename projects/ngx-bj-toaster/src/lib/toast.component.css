@@ -1,9 +1,44 @@
 .toast-container {
-  @apply fixed flex flex-col gap-4 z-[9000] max-w-[400px] min-w-0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Équivalent à gap-4 */
+  z-index: 9000;
+  max-width: 400px;
+  min-width: 0;
 }
 
 .toast {
-  @apply cursor-default rounded-full px-2 py-2 transition-all duration-500 bg-white flex items-center space-x-4 w-fit pr-8 font-semibold border shadow-md max-w-full truncate min-w-0;
+  cursor: default;
+  border-radius: 9999px; /* Équivalent à rounded-full */
+  padding: 0.5rem; /* px-2 py-2 */
+  transition: all 0.5s ease; /* Équivalent à transition-all duration-500 */
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Équivalent à space-x-4 */
+  width: fit-content; /* Équivalent à w-fit */
+  padding-right: 2rem; /* Équivalent à pr-8 */
+  font-weight: 600; /* Équivalent à font-semibold */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Équivalent à border (par défaut Tailwind utilise une bordure légère) */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Équivalent à shadow-md */
+  max-width: 100%; /* Équivalent à max-w-full */
+  text-overflow: ellipsis; /* Équivalent à truncate */
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.toast-message-wrapper{
+  display: flex; /* Équivalent à flex */
+  align-items: center; /* Équivalent à items-center */
+  justify-content: center; /* Équivalent à justify-center */
+  width: 30px; /* Équivalent à w-[30px] */
+  height: 30px; /* Équivalent à h-[30px] */
+  border-radius: 50%; /* Équivalent à rounded-full */
+  z-index: 50; /* Équivalent à z-50 */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Équivalent à shadow */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Équivalent à border */
 }
 
 .toast.success {
