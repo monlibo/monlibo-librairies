@@ -2,7 +2,13 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface ToastConfig {
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  position?:
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-left'
+    | 'top-center'
+    | 'bottom-center';
   maxToasts?: number;
   duration?: number;
   floating?: boolean;
@@ -13,7 +19,8 @@ export const TOAST_CONFIG = new InjectionToken<ToastConfig>('ToastConfig');
 export interface ToastMessage {
   id: string;
   type?: 'success' | 'error' | 'info';
-  message: string;
+  title: string;
+  message?: string;
   duration?: number;
   floating?: boolean;
 }
@@ -56,25 +63,27 @@ export class ToastService {
     }
   }
 
-  success(message: string, floating?: boolean) {
+  success(title: string, floating?: boolean) {
     this.addToast({
       type: 'success',
-      message,
+      title,
       floating,
     });
   }
 
-  error(message: string) {
+  error(title: string, floating?: boolean) {
     this.addToast({
       type: 'error',
-      message,
+      title,
+      floating,
     });
   }
 
-  info(message: string) {
+  info(title: string, floating?: boolean) {
     this.addToast({
       type: 'info',
-      message,
+      title,
+      floating,
     });
   }
 

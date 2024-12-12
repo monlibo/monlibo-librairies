@@ -1,11 +1,17 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AsyncPipe, NgClass, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ToastMessage, ToastService } from './ngx-bj-toaster.service';
+import {
+  TOAST_CONFIG,
+  ToastConfig,
+  ToastMessage,
+  ToastService,
+} from './ngx-bj-toaster.service';
 import { ToastSuccessIcon } from './icons/success-icon.component';
 import { ToastInfoIcon } from './icons/info-icon.component';
 import { ToastErrorIcon } from './icons/error-icon.component';
+import { ToastXIcon } from "./icons/x-icon.component";
 
 @Component({
   selector: 'bj-toaster',
@@ -16,7 +22,8 @@ import { ToastErrorIcon } from './icons/error-icon.component';
     ToastSuccessIcon,
     ToastInfoIcon,
     ToastErrorIcon,
-  ],
+    ToastXIcon
+],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.css',
   animations: [
@@ -42,12 +49,17 @@ import { ToastErrorIcon } from './icons/error-icon.component';
 export class ToastComponent implements OnInit {
   toasts$: Observable<ToastMessage[]>;
   position: string = 'top-right';
-  constructor(private readonly toastService: ToastService) {
+
+  constructor(
+    @Inject(ToastService) private readonly toastService: ToastService,
+    @Inject(TOAST_CONFIG) private config: ToastConfig
+  ) {
     this.toasts$ = this.toastService.toasts$;
   }
 
   ngOnInit(): void {
-    this.position = this.toastService.getPosition() ?? 'top-right';
+    this.position =
+      this.toastService.getPosition() ?? this.config.position ?? 'top-right';
   }
 
   removeToast(id: string): void {
@@ -58,29 +70,29 @@ export class ToastComponent implements OnInit {
     return this.toastService.getPosition();
   }
 
-  getTypeClass(type: string | undefined): string {
-    switch (type) {
-      case 'success':
-        return ' text-green-500 border-green-200';
-      case 'error':
-        return 'text-red-500 border-red-300 ';
-      case 'info':
-        return 'text-black border-gray-300';
-      default:
-        return 'text-black border-gray-300';
-    }
-  }
+  // getTypeClass(type: string | undefined): string {
+  //   switch (type) {
+  //     case 'success':
+  //       return 'success';
+  //     case 'error':
+  //       return 'text-red-500 border-red-300 ';
+  //     case 'info':
+  //       return 'text-black border-gray-300';
+  //     default:
+  //       return 'text-black border-gray-300';
+  //   }
+  // }
 
   getIconClass(type: string | undefined): string {
     switch (type) {
       case 'success':
-        return ' text-green-500 border-green-200 !bg-green-100';
+        return ' text-green-500';
       case 'error':
-        return 'text-red-500 border-red-300 !bg-red-100';
+        return 'text-red-500';
       case 'info':
-        return 'text-black border-gray-300 !bg-gray-50';
+        return 'text-black ';
       default:
-        return 'text-black border-gray-300 !bg-gray-50';
+        return 'text-black ';
     }
   }
 }

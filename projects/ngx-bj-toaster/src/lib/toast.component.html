@@ -2,26 +2,30 @@
   <div
     *ngFor="let toast of toasts$ | async"
     class="toast"
-    [ngClass]="getTypeClass(toast.type)"
+    [ngClass]="toast.type"
     (click)="removeToast(toast.id)"
     @toastAnimation
   >
-    <div
-      class="toast-message-wrapper"
-      [ngClass]="getIconClass(toast.type)"
-    >
-      @switch (toast.type) {
-        @case ("success") {
-          <app-toast-success-icon />
-        }
-        @case ("info") {
-          <app-toast-info-icon />
-        }
-        @case ("error") {
-          <app-toast-error-icon />
-        }
-      }
+    <div class="toast-icon-wrapper" [ngClass]="toast.type">
+      @switch (toast.type) { @case ("success") {
+      <app-toast-success-icon />
+      } @case ("info") {
+      <app-toast-info-icon />
+      } @case ("error") {
+      <app-toast-error-icon />
+      } }
     </div>
-    <p class="text-inherit truncate min-w-0">{{ toast.message }}</p>
+    <div class="toast-message-wrapper">
+      <div class="toast-title">
+        {{ toast.title }}
+      </div>
+      <p class="toast-description">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit
+      </p>
+    </div>
+
+    <div class="toast-x-icon">
+      <app-toast-x-icon />
+    </div>
   </div>
 </div>
