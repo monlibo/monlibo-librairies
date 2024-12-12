@@ -11,6 +11,12 @@ BJ Toaster is a customizable toast notification library for Angular applications
 - Smooth entry and exit animations.
 - Floating or fixed toast modes.
 
+## Preview
+
+<p>
+<img src="assets/images/scrennshot.png" style="display:inline-block;width:100%;" />
+</p>
+
 ## Installation
 
 Install the library via npm:
@@ -58,20 +64,20 @@ Inject the `ToastService` in your component and use it to display toasts:
 #### ExampleComponent
 
 ```typescript
-import { Component } from '@angular/core';
-import { ToastService } from 'ngx-bj-toaster';
+import { Component } from "@angular/core";
+import { ToastService } from "ngx-bj-toaster";
 
 @Component({
-  selector: 'app-example',
-  template: `<button (click)="showSuccessToast()">Show Success Toast</button>`
+  selector: "app-example",
+  template: `<button (click)="showSuccessToast()">Show Success Toast</button>`,
 })
 export class ExampleComponent {
   constructor(private toastService: ToastService) {}
 
   showSuccessToast() {
     this.toastService.success({
-      title: 'Operation Successful',
-      message: 'Your operation was completed successfully!',
+      title: "Operation Successful",
+      message: "Your operation was completed successfully!",
     });
   }
 }
@@ -84,8 +90,7 @@ Add the `<bj-toaster/>` selector to your application's root component or whereve
 #### AppComponent Template
 
 ```html
-<bj-toaster/>
-<router-outlet></router-outlet>
+<bj-toaster /> <router-outlet></router-outlet>
 ```
 
 ### 4. Customize Toast Configurations (Optional)
@@ -100,12 +105,12 @@ You can customize the default behavior by providing a configuration object to th
 
 ## Toast Options
 
-| Option    | Type                         | Default       | Description                                 |
-| --------- | ---------------------------- | ------------- | ------------------------------------------- |
-| position  | string (`'top-right'`, etc.) | `'top-right'` | Position of the toasts.                     |
-| maxToasts | number                       | `5`           | Maximum number of visible toasts at a time. |
-| duration  | number                       | `5000`        | Duration (ms) before auto-dismiss.          |
-| floating  | boolean                      | `false`       | Whether the toast should remain visible.    |
+| Option    | Type                                                                                                     | Default       | Description                                 |
+| --------- | -------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------- |
+| position  | string (`'top-right'`, `top-left`, `'bottom-right'`, `'bottom-left'`, `'top-center'`, `'bottom-center'`) | `'top-right'` | Position of the toasts.                     |
+| maxToasts | number                                                                                                   | `5`           | Maximum number of visible toasts at a time. |
+| duration  | number                                                                                                   | `5000`        | Duration (ms) before auto-dismiss.          |
+| floating  | boolean                                                                                                  | `false`       | Whether the toast should remain visible.    |
 
 ## ToastService API
 
@@ -121,4 +126,3 @@ You can customize the default behavior by providing a configuration object to th
 ## License
 
 This library is open-source and available under the MIT License.
-
